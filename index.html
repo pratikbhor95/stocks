@@ -1,0 +1,129 @@
+<html>
+ <head>
+   <title>students api</title>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+   <script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+   <style>
+    #table_content {
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    #table_content td, #table_content th {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+    
+    #table_content tr:nth-child(even){background-color: #f2f2f2;}
+    
+    #table_content tr:hover {background-color: #ddd;}
+    
+    #table_content th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: left;
+      background-color: #373737;
+      color: white;
+    }
+    </style>
+</head>
+<body>
+<div>
+    <table>
+        <tr>
+            <td><button class="apireq">click me </button></td>
+            <td><button class="apilogin">login </button></td>
+            <td><button class="apilogout">logout </button></td>
+
+        </tr>
+    </table>
+</div>
+<div>
+    <h1 id="warn_msg"></h1>
+</div>
+
+    <div style="margin-top: 100px;">
+    
+    <table id="table_content">
+      
+      
+    </table>
+</div>
+</body>
+</html>
+<script>
+$(document).ready(function() {
+    $.ajaxSetup({
+            headers: {
+                "Authorization": 'Token ' + localStorage.getItem('authToken')
+            }
+        });
+    $('.apireq').click( function() {
+    console.log({"Authorization": 'Token ' + localStorage.getItem('authToken')});
+    
+    $.ajax({
+             url : "http://localhost:8000/api/shares/",
+             datatype: "JSON",
+             type:"GET",
+             data:{"Authorization": 'Token ' + localStorage.getItem('authToken')},
+             success : function (data) {
+                console.log(data)
+                      $('#warn_msg').text(data['msg']);
+                      htm = '';
+                      htm +=    '<tr>'+
+                                '<th colspan ="3" id="company_name">companyName</th>'+
+                                '<th colspan ="3" id="company_symbol">companySymbol</th>'+
+                                '<th colspan ="3" id="price">price</th>'+
+                                '<th colspan ="3" id="qty">quantity</th>'+
+                                '<th colspan ="3" id="purchased">purchased</th>'+
+                                '<tr>'
+                      for(i in data){
+                        htm +=  '<tr>'+
+                                '<td colspan ="3" id="company_name">'+data[i]['companyName']+'</td>'+
+                                '<td colspan ="3" id="company_symbol">'+data[i]['companySymbol']+'</td>'+
+                                '<td colspan ="3" id="price">'+data[i]['price']+'</td>'+
+                                '<td colspan ="3" id="qty">'+data[i]['quantity']+'</td>'+
+                                '<td colspan ="3" id="purchased">0</td>'+
+                                '<tr>'
+                      }
+                      $('#table_content').html(htm);
+                    }
+                 });
+             });
+$('.apilogin').click( function() {
+   
+    $.ajax({
+            url : "http://localhost:8000/api/login/?username=admin&password=admin",
+            datatype: "JSON",
+            type:"POST",
+            
+            success : function (data) {
+                console.log(data)
+                console.log(data.token)
+                localStorage.setItem('authToken', data.token)
+                      $('#warn_msg').text(data['msg']);
+                      
+                    },
+            
+                 });
+             });
+
+$('.apilogout').click( function() {
+    
+    $.ajax({
+             url : "http://localhost:8000/api/logout/",
+             datatype: "JSON",
+             type:"POST",
+             data:{"Authorization": 'Token ' + localStorage.getItem('authToken')},
+             success : function (data) {
+                console.log(data)
+                      $('#warn_msg').text(data['msg']);
+                      ;
+                    }
+                 });
+             });
+});
+
+             
+</script>
