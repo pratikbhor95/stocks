@@ -165,7 +165,7 @@ $(document).ready(function() {
       login_password = $('#pass_field').val()
 
       $.ajax({
-            url : "http://localhost:8000/api/login/?username="+login_username+"&password="+login_password,
+            url : "http://13.48.192.106:443/api/login/?username="+login_username+"&password="+login_password,
             datatype: "JSON",
             type:"POST",
             
@@ -191,7 +191,7 @@ $(document).ready(function() {
     
     console.log({"Authorization": 'Token ' + localStorage.getItem('authToken')});
     $.ajax({
-             url : "http://localhost:8000/api/shares/",
+             url : "http://13.48.192.106:443/api/shares/",
              datatype: "JSON",
              type:"GET",
              data:{"Currency" : $('#currselect').val(),"Authorization": 'Token ' + localStorage.getItem('authToken')},
@@ -235,7 +235,7 @@ $(document).ready(function() {
   $(document).on('click', '#sort_desc', function() {
     console.log({"Authorization": 'Token ' + localStorage.getItem('authToken')});
     $.ajax({
-             url : "http://localhost:8000/api/shares/highestprice/",
+             url : "http://13.48.192.106:443/api/shares/highestprice/",
              datatype: "JSON",
              type:"GET",
              data:{"Currency" : $('#currselect').val(),"Authorization": 'Token ' + localStorage.getItem('authToken')},
@@ -278,7 +278,7 @@ $(document).ready(function() {
              $(document).on('click', '#sort_asc', function() {
     console.log({"Authorization": 'Token ' + localStorage.getItem('authToken')});
     $.ajax({
-             url : "http://localhost:8000/api/shares/lowestprice/",
+             url : "http://13.48.192.106:443/api/shares/lowestprice/",
              datatype: "JSON",
              type:"GET",
              data:{"Currency" : $('#currselect').val(),"Authorization": 'Token ' + localStorage.getItem('authToken')},
@@ -321,7 +321,7 @@ $(document).ready(function() {
 $('.apilogout').click( function() {
     
     $.ajax({
-             url : "http://localhost:8000/api/logout/",
+             url : "http://13.48.192.106:443/api/logout/",
              datatype: "JSON",
              type:"POST",
              data:{"Authorization": 'Token ' + localStorage.getItem('authToken')},
@@ -340,7 +340,7 @@ $('#sharesInput').keyup( function() {
     // var token = {}
     console.log({"Authorization": 'Token ' + localStorage.getItem('authToken')})
     $.ajax({
-             url : "http://localhost:8000/api/shares/search/?company="+$(this).val(),
+             url : "http://13.48.192.106:443/api/shares/search/?company="+$(this).val(),
              datatype: "JSON",
              type:"GET",
              data:{"Currency" : $('#currselect').val(),"Authorization": 'Token ' + localStorage.getItem('authToken')},
@@ -384,7 +384,7 @@ $('#sharesInput').keyup( function() {
         console.log('Share qty : ',$('#customQty_'+idappend).val());
       console.log({"qty": shareqty ,"shareid":shareId ,"Authorization": 'Token ' + localStorage.getItem('authToken')})
       $.ajax({
-              url : "http://localhost:8000/api/shares/buy/?qty="+shareqty+'&shareid='+shareId+'&Currency='+tocurr,
+              url : "http://13.48.192.106:443/api/shares/buy/?qty="+shareqty+'&shareid='+shareId+'&Currency='+tocurr,
               datatype: "JSON",
               type:"POST",
               data:{"Authorization": 'Token ' + localStorage.getItem('authToken')},
@@ -431,7 +431,7 @@ $('#sharesInput').keyup( function() {
         console.log('Share qty : ',$('#customQty_'+idappend).val());
       console.log({"qty": shareqty ,"shareid":shareId ,"Authorization": 'Token ' + localStorage.getItem('authToken')})
       $.ajax({
-              url : "http://localhost:8000/api/shares/sell/?qty="+shareqty+'&shareid='+shareId+'&Currency='+tocurr,
+              url : "http://13.48.192.106:443/api/shares/sell/?qty="+shareqty+'&shareid='+shareId+'&Currency='+tocurr,
               datatype: "JSON",
               type:"POST",
               data:{"Authorization": 'Token ' + localStorage.getItem('authToken')},
